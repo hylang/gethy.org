@@ -1,0 +1,17 @@
+[Unit]
+Description=gethy.org
+Author=Paul R. Tagliamonte <tag@pault.ag>
+Requires=docker.io.service
+After=postgres.service
+
+[Service]
+Restart=always
+ExecStart=/bin/bash -c '/usr/bin/docker start -a gethy.org || \
+    /usr/bin/docker run \
+        --name gethy.org \
+        -v /srv/lucifer.pault.ag/prod/nginx/serve/sockets:/sockets \
+        paultag/gethy.org'
+ExecStop=/usr/bin/docker stop -t 5 gethy.org
+
+[Install]
+WantedBy=multi-user.target
