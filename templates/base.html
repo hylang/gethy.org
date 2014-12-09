@@ -20,10 +20,17 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
+         {% set navigation_bar = [
+            ('/', 'home', 'Home'),
+            ('/about', 'about', 'About'),
+            ('/contact', 'contact', 'Contact')
+        ] -%}
+        {% set active_page = active_page|default('home') -%}
+        {% for href, id, caption in navigation_bar %}
+          <li{% if id == active_page %} class="active"{% endif
+          %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+        {% endfor %}
+        </ul>     
         <h3 class="text-muted">hy</h3>
       </div>
 
